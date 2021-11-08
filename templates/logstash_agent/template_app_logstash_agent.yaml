@@ -1,0 +1,389 @@
+zabbix_export:
+  version: '5.4'
+  date: '2021-11-08T13:38:10Z'
+  groups:
+    -
+      uuid: f2481361f99448eea617b7b1d4765566
+      name: 'Discovered hosts'
+  templates:
+    -
+      uuid: 66f1fd92bc4442c08d77f0b8d236dc46
+      template: Template_app_logstash_agent
+      name: Template_app_logstash_agent
+      groups:
+        -
+          name: 'Discovered hosts'
+      items:
+        -
+          uuid: b8414c42f018494fa02b65d820dcbe74
+          name: 'Logstash: Batch delay'
+          type: DEPENDENT
+          key: logstash.batch_delay
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.pipeline.batch_delay
+          master_item:
+            key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+          tags:
+            -
+              tag: Application
+              value: Logstash
+        -
+          uuid: 4d1f683b5d1e4b59a5d01ddcb4e65dcd
+          name: 'Logstash: Batch size'
+          type: DEPENDENT
+          key: logstash.batch_size
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.pipeline.batch_size
+          master_item:
+            key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+          tags:
+            -
+              tag: Application
+              value: Logstash
+        -
+          uuid: 79e59c7296f842278d249262a2f11bcd
+          name: 'Logstash: process total virutal memory'
+          type: DEPENDENT
+          key: logstash.get.process.mem
+          delay: '0'
+          units: B
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.process.mem.total_virtual_in_bytes
+          master_item:
+            key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+          tags:
+            -
+              tag: Application
+              value: Logstash
+        -
+          uuid: b45d329297a44acf93394ef3c423cac3
+          name: 'Logstash: JVM threads count'
+          type: DEPENDENT
+          key: logstash.jvm.threads.count
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.jvm.threads.count
+          master_item:
+            key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+          tags:
+            -
+              tag: Application
+              value: Logstash
+        -
+          uuid: c3c8ea048d5c4ef086df5aea60f63957
+          name: 'Logstash: JVM threads peak count'
+          type: DEPENDENT
+          key: logstash.jvm.threads.peak_count
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.jvm.threads.peak_count
+          master_item:
+            key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+          tags:
+            -
+              tag: Application
+              value: Logstash
+        -
+          uuid: 33f76794332643f598cd35082dc27e49
+          name: 'Logstash: JVM uptime'
+          type: DEPENDENT
+          key: logstash.jvm.uptime_in_millis
+          delay: '0'
+          units: s
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.jvm.uptime_in_millis
+            -
+              type: MULTIPLIER
+              parameters:
+                - '0.001'
+          master_item:
+            key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+          tags:
+            -
+              tag: Application
+              value: Logstash
+        -
+          uuid: ed80424deb7d4c0e89f7c0c92a10cd1c
+          name: 'Logstash: Status'
+          type: DEPENDENT
+          key: logstash.status
+          delay: '0'
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.status
+          master_item:
+            key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+          tags:
+            -
+              tag: Application
+              value: Logstash
+        -
+          uuid: dd228c8bc37c450c8b382c88c8476f5b
+          name: 'Logstash: Version'
+          type: DEPENDENT
+          key: logstash.version
+          delay: '0'
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.version
+            -
+              type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - '86400'
+          master_item:
+            key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+          tags:
+            -
+              tag: Application
+              value: Logstash
+        -
+          uuid: c7af278bb1a3459e9631ae7ac975fcf5
+          name: 'Logstash: workers'
+          type: DEPENDENT
+          key: logstash.workers
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.pipeline.workers
+          master_item:
+            key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+          tags:
+            -
+              tag: Application
+              value: Logstash
+        -
+          uuid: c24f1a7fb83f412cbed4dc5cae151d69
+          name: 'Logstash: Service status'
+          key: 'net.tcp.service["{$LOGSTASH.STATS.SCHEME}","{$LOGSTASH.HOST}","{$LOGSTASH.STATS.PORT}"]'
+          delay: 5m
+          preprocessing:
+            -
+              type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - '600'
+          tags:
+            -
+              tag: Application
+              value: Logstash
+        -
+          uuid: 90cf6236f309457b9fc85c31f164efd9
+          name: 'Logstash: Node stats'
+          key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+          delay: 15m
+          trends: '0'
+          value_type: TEXT
+          description: 'Logstash node stats'
+          preprocessing:
+            -
+              type: REGEX
+              parameters:
+                - '\n\s?\n([\s\S]*)'
+                - \0
+          tags:
+            -
+              tag: Application
+              value: Logstash
+      discovery_rules:
+        -
+          uuid: 69a550944dcd4d468fc5a74479aa1ebf
+          name: 'Pipeline discovery'
+          type: DEPENDENT
+          key: logstash.pipeline.discovery
+          delay: '0'
+          item_prototypes:
+            -
+              uuid: 8cf21025e5084366a90b3ed03c2a6a99
+              name: 'Logstash {#PIPELINE} pipeline - events in'
+              type: DEPENDENT
+              key: 'logstash.get.pipelines.events.in[{#PIPELINE}]'
+              delay: '0'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.pipelines.[''{#PIPELINE}''].events.in'
+              master_item:
+                key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+              tags:
+                -
+                  tag: Application
+                  value: Logstash
+            -
+              uuid: b8112ef01d7a46d199ef6b5362b8b27b
+              name: 'Logstash {#PIPELINE} pipeline - queue max size'
+              type: DEPENDENT
+              key: 'logstash.get.pipelines.queue.max_queue_size_in_bytes[{#PIPELINE}]'
+              delay: '0'
+              units: B
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.pipelines.[''{#PIPELINE}''].queue.max_queue_size_in_bytes'
+              master_item:
+                key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+              tags:
+                -
+                  tag: Application
+                  value: Logstash
+            -
+              uuid: 144190a698ab4031881702a593652ad8
+              name: 'Logstash {#PIPELINE} pipeline - DLQ queue_size_in_bytes'
+              type: DEPENDENT
+              key: 'logstash.pipeline.dlq.queue_size_in_bytes[{#PIPELINE}]'
+              delay: '0'
+              units: B
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.pipelines.[''{#PIPELINE}''].dead_letter_queue.queue_size_in_bytes'
+              master_item:
+                key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+              tags:
+                -
+                  tag: Application
+                  value: Logstash
+            -
+              uuid: bc70600fd2f54bf2a3a45a0bf8356290
+              name: 'Logstash {#PIPELINE} pipeline - events filtered'
+              type: DEPENDENT
+              key: 'logstash.pipeline.events.filtered[{#PIPELINE}]'
+              delay: '0'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.pipelines.[''{#PIPELINE}''].events.filtered'
+              master_item:
+                key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+              tags:
+                -
+                  tag: Application
+                  value: Logstash
+            -
+              uuid: 66ee79d785ea4454894170a118b7bcef
+              name: 'Logstash {#PIPELINE} pipeline - events out'
+              type: DEPENDENT
+              key: 'logstash.pipeline.events.out[{#PIPELINE}]'
+              delay: '0'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.pipelines.[''{#PIPELINE}''].events.out'
+              master_item:
+                key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+              tags:
+                -
+                  tag: Application
+                  value: Logstash
+            -
+              uuid: 523451bc32cf40f4967969f5d2ca009e
+              name: 'Logstash {#PIPELINE} pipeline - events push_duration'
+              type: DEPENDENT
+              key: 'logstash.pipeline.events.queue_push_duration_in_millis[{#PIPELINE}]'
+              delay: '0'
+              units: s
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.pipelines.[''{#PIPELINE}''].events.queue_push_duration_in_millis'
+                -
+                  type: MULTIPLIER
+                  parameters:
+                    - '0.001'
+              master_item:
+                key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+              tags:
+                -
+                  tag: Application
+                  value: Logstash
+            -
+              uuid: 3726d7bd754b419a968fd13233bf5281
+              name: 'Logstash {#PIPELINE} pipeline - queue size'
+              type: DEPENDENT
+              key: 'logstash.pipeline.queue.queue_size_in_bytes[{#PIPELINE}]'
+              delay: '0'
+              units: B
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.pipelines.[''{#PIPELINE}''].queue.queue_size_in_bytes'
+              master_item:
+                key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+              tags:
+                -
+                  tag: Application
+                  value: Logstash
+          master_item:
+            key: 'web.page.get["{$LOGSTASH.STATS.SCHEME}://{$LOGSTASH.HOST}:{$LOGSTASH.STATS.PORT}/{$LOGSTASH.STATS.PATH}?pretty"]'
+          lld_macro_paths:
+            -
+              lld_macro: '{#PIPELINE}'
+              path: $.pipeline
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.pipelines.*~'
+            -
+              type: JAVASCRIPT
+              parameters:
+                - |2
+                   var value = JSON.parse(value);
+                      var arr = [];
+                      for (var i = 0; i < value.length; i++) {
+                              arr.push({ "pipeline": value[i] });
+                  
+                  }
+                  return JSON.stringify(arr);
+      tags:
+        -
+          tag: Application
+          value: Logstash
+      macros:
+        -
+          macro: '{$LOGSTASH.HOST}'
+          value: localhost
+        -
+          macro: '{$LOGSTASH.STATS.PATH}'
+          value: _node/stats
+        -
+          macro: '{$LOGSTASH.STATS.PORT}'
+          value: '9600'
+        -
+          macro: '{$LOGSTASH.STATS.SCHEME}'
+          value: http
